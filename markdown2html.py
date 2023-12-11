@@ -1,3 +1,6 @@
+#!/usr/bin/python3
+""" This file is made to parse some Markdown to HTML """
+
 import sys
 
 
