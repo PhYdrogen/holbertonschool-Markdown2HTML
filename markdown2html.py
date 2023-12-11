@@ -54,7 +54,7 @@ def main():
                     if p is False:
                         print(f"<p>", file=html)
                         p = True
-                    print(f"{line[:-1]}", file=html)
+                    print(f"{line}", file=html)
                     if fidx + 1 == l and p:
                         print("</p>", file=html)
 
