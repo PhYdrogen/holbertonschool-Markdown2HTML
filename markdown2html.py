@@ -20,11 +20,11 @@ def main():
                 if char == " " and line[idx-1] == "#":
                     if ul is True:
                         print(f"</ul>", file=html)
+                        ul = False
                     if ol is True:
-                        print(f"</ul>", file=html)
+                        print(f"</ol>", file=html)
+                        ol = False
                     print(f"<h{idx}>{line[idx:-1]}</h{idx}>", file=html)
-                    ul = False
-                    ol = False
                 if char == " " and line[idx-1] == "-":
                     if ul is False:
                         print(f"<ul>", file=html)
@@ -32,6 +32,7 @@ def main():
                     print(f"<li>{line[idx+1:-1]}</li>", file=html)
                     if fidx + 1 == l and ul is True:
                         print(f"</ul>", file=html)
+                        ul = False
                 if char == " " and line[idx-1] == "*":
                     if ol is False:
                         print(f"<ol>", file=html)
@@ -39,6 +40,7 @@ def main():
                     print(f"<li>{line[idx+1:-1]}</li>", file=html)
                     if fidx + 1 == l and ol is True:
                         print(f"</ol>", file=html)
+                        ol = False
         exit(0)
     except FileNotFoundError:
         print(f"Missing {sys.argv[1]}", file=sys.stderr)
