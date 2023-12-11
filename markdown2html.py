@@ -10,6 +10,7 @@ def main():
         exit(1)
     try:
         ul = False
+        ol = False
         file = open(sys.argv[1], "r")
         file_len = open(sys.argv[1], "r")
         html = open(sys.argv[2], "w")
@@ -19,8 +20,11 @@ def main():
                 if char == " " and line[idx-1] == "#":
                     if ul is True:
                         print(f"</ul>", file=html)
+                    if ol is True:
+                        print(f"</ul>", file=html)
                     print(f"<h{idx}>{line[idx:-1]}</h{idx}>", file=html)
                     ul = False
+                    ol = False
                 if char == " " and line[idx-1] == "-":
                     if ul is False:
                         print(f"<ul>", file=html)
@@ -28,7 +32,13 @@ def main():
                     print(f"<li>{line[idx+1:-1]}</li>", file=html)
                     if fidx + 1 == l and ul is True:
                         print(f"</ul>", file=html)
-
+                if char == " " and line[idx-1] == "*":
+                    if ol is False:
+                        print(f"<ol>", file=html)
+                        ol = True
+                    print(f"<li>{line[idx+1:-1]}</li>", file=html)
+                    if fidx + 1 == l and ol is True:
+                        print(f"</ol>", file=html)
         exit(0)
     except FileNotFoundError:
         print(f"Missing {sys.argv[1]}", file=sys.stderr)
