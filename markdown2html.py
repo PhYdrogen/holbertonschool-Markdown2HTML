@@ -17,6 +17,8 @@ def main():
         for (fidx, line) in enumerate(file):
             for (idx, char) in enumerate(line):
                 if char == " " and line[idx-1] == "#":
+                    if ul is True:
+                        print(f"</ul>", file=html)
                     print(f"<h{idx}>{line[idx:-1]}</h{idx}>", file=html)
                     ul = False
                 if char == " " and line[idx-1] == "-":
