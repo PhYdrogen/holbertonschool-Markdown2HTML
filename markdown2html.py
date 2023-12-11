@@ -5,7 +5,7 @@ import sys
 
 
 def main():
-    if len(sys.argv) < 2:
+    if len(sys.argv) < 3:
         print("Usage: ./markdown2html.py README.md README.html", file=sys.stderr)
         exit(1)
 
@@ -13,7 +13,7 @@ def main():
         file = open("README.md")
         exit(0)
     except:
-        print("Missing <filename>")
+        print(f"Missing {sys.argv[1]}", file=sys.stderr)
 
 
 if __name__ == "__main__":
