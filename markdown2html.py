@@ -2,6 +2,7 @@
 """ This file is made to parse some Markdown to HTML """
 
 import sys
+import hashlib
 
 
 def main():
@@ -19,6 +20,14 @@ def main():
         html = open(sys.argv[2], "w")
         l = len(file_len.readlines())
         for (fidx, line) in enumerate(file):
+            if line.find("[[") != -1 and line.find("]]") != -1:
+                find = line.find('[[')
+                rfind = line.rfind(']]')
+                word = line[find+2:rfind].lower()
+                secret = hashlib.md5(word.encode()).hexdigest()
+                # print(f"[[ : {secret}")
+                line = line.replace(f"{line[find:rfind+2]}", secret, 1)
+                print(f"{line[find:rfind+2]}")
             if line.find("**") != -1:
                 line = line.replace("**", "<b>", 1)
                 line = line.replace("**", "</b>", 1)
