@@ -45,7 +45,8 @@ def remove_suffix(self: str, suffix: str) -> str:
 
 def main():
     if len(sys.argv) < 3:
-        print("Usage: ./markdown2html.py README.md README.html", file=sys.stderr)
+        print("Usage: ./markdown2html.py README.md README.html",
+              file=sys.stderr)
         exit(1)
     try:
         tags = ["*", "-", "#", "\n"]
@@ -97,7 +98,7 @@ def main():
                     p = False
             if line.rfind("#") != -1:
                 pos = line.rfind("#")
-                line = line.remove_prefix(f"{line[:pos+2]}")
+                line = remove_prefix(line, f"{line[:pos+2]}")
                 line = f"<h{pos+1}>{line[:-1]}</h{pos+1}>"
                 print(line, file=html)
             if line.startswith("-"):
@@ -105,7 +106,7 @@ def main():
                     tag = f"<ul>"
                     ul = True
                     print(tag, file=html)
-                line = line.remove_prefix("- ")
+                line = remove_prefix(line, "- ")
                 line = f"<li>{line[:-1]}</li>"
                 print(line, file=html)
             if line.startswith("*"):
@@ -113,7 +114,7 @@ def main():
                     tag = f"<ol>"
                     ol = True
                     print(tag, file=html)
-                line = line.remove_prefix("* ")
+                line = remove_prefix(line, "* ")
                 line = f"<li>{line[:-1]}</li>"
                 print(line, file=html)
             if fidx + 1 == longeur:
