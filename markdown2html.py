@@ -12,7 +12,7 @@ Test comment
 """
 
 
-def removeprefix(self, prefix):
+def remove_prefix(self: str, prefix: str) -> str:
     """
     Test comment
     Test comment
@@ -31,7 +31,7 @@ Test comment
 """
 
 
-def removesuffix(self, suffix):
+def remove_suffix(self: str, suffix: str) -> str:
     """
     Test comment
     Test comment
@@ -48,7 +48,6 @@ def main():
         print("Usage: ./markdown2html.py README.md README.html", file=sys.stderr)
         exit(1)
     try:
-        bold = {"tag": False, "count": 0, "idx": 0}
         tags = ["*", "-", "#", "\n"]
         ul = False
         ol = False
@@ -56,7 +55,7 @@ def main():
         file = open(sys.argv[1], "r")
         file_len = open(sys.argv[1], "r")
         html = open(sys.argv[2], "w")
-        l = len(file_len.readlines())
+        longeur = len(file_len.readlines())
         for (fidx, line) in enumerate(file):
             if line.find("((") != -1 and line.find("))") != -1:
                 find = line.find('((')
@@ -98,7 +97,7 @@ def main():
                     p = False
             if line.rfind("#") != -1:
                 pos = line.rfind("#")
-                line = line.removeprefix(f"{line[:pos+2]}")
+                line = line.remove_prefix(f"{line[:pos+2]}")
                 line = f"<h{pos+1}>{line[:-1]}</h{pos+1}>"
                 print(line, file=html)
             if line.startswith("-"):
@@ -106,7 +105,7 @@ def main():
                     tag = f"<ul>"
                     ul = True
                     print(tag, file=html)
-                line = line.removeprefix("- ")
+                line = line.remove_prefix("- ")
                 line = f"<li>{line[:-1]}</li>"
                 print(line, file=html)
             if line.startswith("*"):
@@ -114,10 +113,10 @@ def main():
                     tag = f"<ol>"
                     ol = True
                     print(tag, file=html)
-                line = line.removeprefix("* ")
+                line = line.remove_prefix("* ")
                 line = f"<li>{line[:-1]}</li>"
                 print(line, file=html)
-            if fidx + 1 == l:
+            if fidx + 1 == longeur:
                 if ol:
                     print("</ol>", file=html)
                     ol = False
