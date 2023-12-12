@@ -4,7 +4,7 @@ This file is made to parse some Markdown to HTML
 First, it read the first arg of code if it doesn't exist it exit with an error
 and it should also exist,
 After it read line by line the the .md file and parse it to HTML
-tags 
+tags
 """
 
 
@@ -40,7 +40,8 @@ if __name__ == "__main__":
     import hashlib
 
     if len(sys.argv) < 3:
-        print("Usage: ./markdown2html.py README.md README.html", file=sys.stderr)
+        print("Usage: ./markdown2html.py README.md README.html",
+              file=sys.stderr)
         exit(1)
     try:
         bold = {"tag": False, "count": 0, "idx": 0}
@@ -51,7 +52,7 @@ if __name__ == "__main__":
         file = open(sys.argv[1], "r")
         file_len = open(sys.argv[1], "r")
         html = open(sys.argv[2], "w")
-        l = len(file_len.readlines())
+        longeur = len(file_len.readlines())
         for (fidx, line) in enumerate(file):
             if line.find("((") != -1 and line.find("))") != -1:
                 find = line.find('((')
@@ -112,7 +113,7 @@ if __name__ == "__main__":
                 line = line.removeprefix("* ")
                 line = f"<li>{line[:-1]}</li>"
                 print(line, file=html)
-            if fidx + 1 == l:
+            if fidx + 1 == longeur:
                 if ol:
                     print("</ol>", file=html)
                     ol = False
