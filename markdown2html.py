@@ -31,7 +31,8 @@ def main():
             if line.find("[[") != -1 and line.find("]]") != -1:
                 find = line.find('[[')
                 rfind = line.rfind(']]')
-                word = line[find+2:rfind].lower()
+                word = line[find+2:rfind]
+                # print(word, end="")
                 secret = hashlib.md5(word.encode()).hexdigest()
                 line = line.replace(f"{line[find:rfind+2]}", secret, 1)
             if line.find("**") != -1:
