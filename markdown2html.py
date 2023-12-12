@@ -5,25 +5,22 @@ import sys
 import hashlib
 
 
-def removeprefix(self: str, prefix: str, /) -> str:
-    """Function that remove prefix of word"""
-    if self.startswith(prefix):
-        return self[len(prefix):]
-    else:
-        return self[:]
+if __name__ == "__main__":
+    def removeprefix(self: str, prefix: str, /) -> str:
+        """Function that remove prefix of word"""
+        if self.startswith(prefix):
+            return self[len(prefix):]
+        else:
+            return self[:]
 
+    def removesuffix(self: str, suffix: str, /) -> str:
+        """Function that remove sufffix of word"""
+        # suffix='' should not call self[:-0].
+        if suffix and self.endswith(suffix):
+            return self[:-len(suffix)]
+        else:
+            return self[:]
 
-def removesuffix(self: str, suffix: str, /) -> str:
-    """Function that remove sufffix of word"""
-    # suffix='' should not call self[:-0].
-    if suffix and self.endswith(suffix):
-        return self[:-len(suffix)]
-    else:
-        return self[:]
-
-
-def main():
-    """Main entry for my parser"""
     if len(sys.argv) < 3:
         print("Usage: ./markdown2html.py README.md README.html", file=sys.stderr)
         exit(1)
@@ -113,6 +110,4 @@ def main():
         print(f"Missing {sys.argv[1]}", file=sys.stderr)
         exit(1)
 
-
-if __name__ == "__main__":
     main()
