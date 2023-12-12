@@ -24,17 +24,18 @@ def main():
                 find = line.find('((')
                 rfind = line.rfind('))')
                 word = line[find+2:rfind]
-                line = line.replace("((", "")
-                line = line.replace("))", "")
-                line = line.replace("C", "")
-                line = line.replace("c", "")
+                print(word)
+                word = word.replace("C", "")
+                word = word.replace("c", "")
+                line = line.replace(f"(({line[find+2:rfind]}))", word)
+                line += "\n"
             if line.find("[[") != -1 and line.find("]]") != -1:
                 find = line.find('[[')
                 rfind = line.rfind(']]')
                 word = line[find+2:rfind]
-                # print(word, end="")
                 secret = hashlib.md5(word.encode()).hexdigest()
                 line = line.replace(f"{line[find:rfind+2]}", secret, 1)
+                line += "\n"
             if line.find("**") != -1:
                 line = line.replace("**", "<b>", 1)
                 line = line.replace("**", "</b>", 1)
