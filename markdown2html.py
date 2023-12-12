@@ -19,6 +19,19 @@ def main():
         html = open(sys.argv[2], "w")
         l = len(file_len.readlines())
         for (fidx, line) in enumerate(file):
+            if line.find("**") != -1:
+                line = line.replace("**", "<b>", 1)
+                line = line.replace("**", "</b>", 1)
+            if line.find("__") != -1:
+                line = line.replace("__", "<em>", 1)
+                line = line.replace("__", "</em>", 1)
+            if line[0] not in tags:
+                if p:
+                    print("<br>", file=html)
+                if not p:
+                    print(f"<p>", file=html)
+                    p = True
+                print(f"{line[:-1]}", file=html)
             if line.isspace():
                 if ul:
                     print("</ul>", file=html)
@@ -26,6 +39,9 @@ def main():
                 if ol:
                     print("</ol>", file=html)
                     ol = False
+                if p:
+                    print("</p>", file=html)
+                    p = False
             if line.rfind("#") != -1:
                 pos = line.rfind("#")
                 line = line.removeprefix(f"{line[:pos+2]}")
@@ -54,61 +70,6 @@ def main():
                     print("</ol>", file=html)
                     ol = False
 
-                # print(line)
-            # bold["boldidx"] = 0
-            # bold["count"] = 0
-            # bold["tag"] = False
-
-            # for (idx, char) in enumerate(line):
-            #     if char == "*":
-            #         bold["count"] += 1
-            #     if bold["count"] == 2 and not bold["tag"]:
-            #         bold["boldidx"] = idx
-            #         bold["tag"] = True
-            #         bold["count"] = 0
-            #     if bold["count"] == 2 and bold["tag"]:
-            #         bidx = bold["idx"]
-            #         html_arr.append(f"<b>{line[bidx+1:idx-1]}</b>")
-            #         bold["tag"] = False
-            #         bold["count"] = 0
-            #     if char.isspace() and idx == 0:
-            #         if ul:
-            #             html_arr.append("</ul>")
-            #             ul = False
-            #         if ol:
-            #             html_arr.append("</ol>")
-            #             ol = False
-            #     if char == " " and line[idx-1] == "#":
-            #         html_arr.append(f"<h{idx}>{line[idx:-1]}</h{idx}>")
-            #     if char == " " and line[idx-1] == "-":
-            #         if ul is False:
-            #             html_arr.append("<ul>")
-            #             ul = True
-            #         html_arr.append(f"<li>{line[idx+1:-1]}</li>")
-            #         if fidx + 1 == l and ul:
-            #             html_arr.append("</ul>")
-            #             ul = False
-            #     if char == " " and line[idx-1] == "*" and not bold["tag"]:
-            #         if ol is False:
-            #             html_arr.append("<ol>")
-            #             ol = True
-            #         html_arr.append(f"<li>{line[idx+1:-1]}</li>")
-            #         if fidx + 1 == l and ol:
-            #             html_arr.append("</ol>")
-            #             ol = False
-            #     if char.isspace() and p and idx == 0:
-            #         html_arr.append("</p>")
-            #         p = False
-            #     if char not in tags and idx == 0:
-            #         if p:
-            #             html_arr.append("</br>")
-            #         if p is False:
-            #             html_arr.append("<p>")
-            #             p = True
-            #         html_arr.append(line)
-            #         if fidx + 1 == l and p:
-            #             html_arr.append("</p>")
-                # Send modif
         exit(0)
     except FileNotFoundError:
         print(f"Missing {sys.argv[1]}", file=sys.stderr)
