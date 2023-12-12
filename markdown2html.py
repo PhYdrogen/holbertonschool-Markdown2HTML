@@ -1,6 +1,10 @@
 #!/usr/bin/python3
 """
 This file is made to parse some Markdown to HTML
+First, it read the first arg of code if it doesn't exist it exit with an error
+and it should also exist,
+After it read line by line the the .md file and parse it to HTML
+tags 
 """
 
 import sys
