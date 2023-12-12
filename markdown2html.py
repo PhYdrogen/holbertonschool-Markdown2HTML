@@ -5,9 +5,40 @@ import sys
 import hashlib
 
 
-def main():
+def removeprefix(self: str, prefix: str, /) -> str:
+    """
+    Function that remove prefix of word
+    imported from the
+    official python document
+    update 3.9+
+    """
+    if self.startswith(prefix):
+        return self[len(prefix):]
+    else:
+        return self[:]
+
+
+def removesuffix(self: str, suffix: str, /) -> str:
+    """
+    Function that remove sufffix of word
+    imported from the
+    official python document
+    update 3.9+
+    """
+    # suffix='' should not call self[:-0].
+    if suffix and self.endswith(suffix):
+        return self[:-len(suffix)]
+    else:
+        return self[:]
+
+
+if __name__ == "__main__":
+    import sys
+    import hashlib
+
     if len(sys.argv) < 3:
-        print("Usage: ./markdown2html.py README.md README.html", file=sys.stderr)
+        print("Usage: ./markdown2html.py README.md README.html",
+              file=sys.stderr)
         exit(1)
     try:
         bold = {"tag": False, "count": 0, "idx": 0}
@@ -18,7 +49,7 @@ def main():
         file = open(sys.argv[1], "r")
         file_len = open(sys.argv[1], "r")
         html = open(sys.argv[2], "w")
-        l = len(file_len.readlines())
+        longeur = len(file_len.readlines())
         for (fidx, line) in enumerate(file):
             if line.find("((") != -1 and line.find("))") != -1:
                 find = line.find('((')
@@ -79,7 +110,7 @@ def main():
                 line = line.removeprefix("* ")
                 line = f"<li>{line[:-1]}</li>"
                 print(line, file=html)
-            if fidx + 1 == l:
+            if fidx + 1 == longeur:
                 if ol:
                     print("</ol>", file=html)
                     ol = False
@@ -95,6 +126,4 @@ def main():
         print(f"Missing {sys.argv[1]}", file=sys.stderr)
         exit(1)
 
-
-if __name__ == "__main__":
     main()
