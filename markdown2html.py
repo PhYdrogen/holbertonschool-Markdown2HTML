@@ -24,7 +24,6 @@ def main():
                 find = line.find('((')
                 rfind = line.rfind('))')
                 word = line[find+2:rfind]
-                print(word)
                 word = word.replace("C", "")
                 word = word.replace("c", "")
                 line = line.replace(f"(({line[find+2:rfind]}))", word)
