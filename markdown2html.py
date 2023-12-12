@@ -23,6 +23,7 @@ def removesuffix(self: str, suffix: str, /) -> str:
 
 
 def main():
+    """Main entry for my parser"""
     if len(sys.argv) < 3:
         print("Usage: ./markdown2html.py README.md README.html", file=sys.stderr)
         exit(1)
