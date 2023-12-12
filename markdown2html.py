@@ -20,14 +20,20 @@ def main():
         html = open(sys.argv[2], "w")
         l = len(file_len.readlines())
         for (fidx, line) in enumerate(file):
+            if line.find("((") != -1 and line.find("))") != -1:
+                find = line.find('((')
+                rfind = line.rfind('))')
+                word = line[find+2:rfind]
+                line = line.replace("((", "")
+                line = line.replace("))", "")
+                line = line.replace("C", "")
+                line = line.replace("c", "")
             if line.find("[[") != -1 and line.find("]]") != -1:
                 find = line.find('[[')
                 rfind = line.rfind(']]')
                 word = line[find+2:rfind].lower()
                 secret = hashlib.md5(word.encode()).hexdigest()
-                # print(f"[[ : {secret}")
                 line = line.replace(f"{line[find:rfind+2]}", secret, 1)
-                print(f"{line[find:rfind+2]}")
             if line.find("**") != -1:
                 line = line.replace("**", "<b>", 1)
                 line = line.replace("**", "</b>", 1)
@@ -64,9 +70,6 @@ def main():
                 line = line.removeprefix("- ")
                 line = f"<li>{line[:-1]}</li>"
                 print(line, file=html)
-                if ul and fidx + 1 == l:
-                    print("</ul>", file=html)
-                    ul = False
             if line.startswith("*"):
                 if ol is False:
                     tag = f"<ol>"
@@ -75,9 +78,16 @@ def main():
                 line = line.removeprefix("* ")
                 line = f"<li>{line[:-1]}</li>"
                 print(line, file=html)
-                if ol and fidx + 1 == l:
+            if fidx + 1 == l:
+                if ol:
                     print("</ol>", file=html)
                     ol = False
+                if ul:
+                    print("</ul>", file=html)
+                    ul = False
+                if p:
+                    print("</p>", file=html)
+                    p = False
 
         exit(0)
     except FileNotFoundError:
