@@ -5,14 +5,14 @@ import sys
 import hashlib
 
 
-def removeprefix(self: str, prefix: str, /) -> str:
+def remove_prefix(self: str, prefix: str, /) -> str:
     if self.startswith(prefix):
         return self[len(prefix):]
     else:
         return self[:]
 
 
-def removesuffix(self: str, suffix: str, /) -> str:
+def remove_suffix(self: str, suffix: str, /) -> str:
     if suffix and self.endswith(suffix):
         return self[:-len(suffix)]
     else:
@@ -74,7 +74,7 @@ def main():
                     p = False
             if line.rfind("#") != -1:
                 pos = line.rfind("#")
-                line = line.removeprefix(f"{line[:pos+2]}")
+                line = line.remove_prefix(f"{line[:pos+2]}")
                 line = f"<h{pos+1}>{line[:-1]}</h{pos+1}>"
                 print(line, file=html)
             if line.startswith("-"):
@@ -82,7 +82,7 @@ def main():
                     tag = f"<ul>"
                     ul = True
                     print(tag, file=html)
-                line = line.removeprefix("- ")
+                line = line.remove_prefix("- ")
                 line = f"<li>{line[:-1]}</li>"
                 print(line, file=html)
             if line.startswith("*"):
@@ -90,7 +90,7 @@ def main():
                     tag = f"<ol>"
                     ol = True
                     print(tag, file=html)
-                line = line.removeprefix("* ")
+                line = line.remove_prefix("* ")
                 line = f"<li>{line[:-1]}</li>"
                 print(line, file=html)
             if fidx + 1 == l:
