@@ -9,6 +9,7 @@ def main():
         print("Usage: ./markdown2html.py README.md README.html", file=sys.stderr)
         exit(1)
     try:
+        bold = {"tag": False, "count": 0, "idx": 0}
         tags = ["*", "-", "#", "\n"]
         ul = False
         ol = False
@@ -16,9 +17,26 @@ def main():
         file = open(sys.argv[1], "r")
         file_len = open(sys.argv[1], "r")
         html = open(sys.argv[2], "w")
+        html_arr = [""]
         l = len(file_len.readlines())
         for (fidx, line) in enumerate(file):
+            bold["boldidx"] = 0
+            bold["count"] = 0
+            bold["tag"] = False
+            modifline = ""
             for (idx, char) in enumerate(line):
+                if char == "*":
+                    bold["count"] += 1
+                if bold["count"] == 2 and not bold["tag"]:
+                    bold["boldidx"] = idx
+                    bold["tag"] = True
+                    bold["count"] = 0
+                if bold["count"] == 2 and bold["tag"]:
+                    bidx = bold["idx"]
+                    modifline = f"{line[:bidx-1]}<b>{line[bidx+1:idx-1]}</b>{line[idx+1:]}"
+                    print(html)
+                    bold["tag"] = False
+                    bold["count"] = 0
                 if char.isspace() and idx == 0:
                     if ul:
                         print(f"</ul>", file=html)
@@ -44,7 +62,6 @@ def main():
                     if fidx + 1 == l and ol:
                         print(f"</ol>", file=html)
                         ol = False
-                # print(f"c: {char}")
                 if char.isspace() and p and idx == 0:
                     print("</p>", file=html)
                     p = False
@@ -57,6 +74,9 @@ def main():
                     print(f"{line}", file=html)
                     if fidx + 1 == l and p:
                         print("</p>", file=html)
+                # Send modif
+                if len(line) == idx + 1:
+                    print(f"{modifline}")
 
         exit(0)
     except FileNotFoundError:
