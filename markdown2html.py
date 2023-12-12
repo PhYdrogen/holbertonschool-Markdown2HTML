@@ -6,7 +6,9 @@ import hashlib
 
 
 def removeprefix(self: str, prefix: str, /) -> str:
-    # Function that remove prefix of word
+    """
+    Function that remove prefix of word
+    """
     if self.startswith(prefix):
         return self[len(prefix):]
     else:
@@ -14,7 +16,9 @@ def removeprefix(self: str, prefix: str, /) -> str:
 
 
 def removesuffix(self: str, suffix: str, /) -> str:
-    # Function that remove sufffix of word
+    """
+    Function that remove sufffix of word
+    """
     # suffix='' should not call self[:-0].
     if suffix and self.endswith(suffix):
         return self[:-len(suffix)]
