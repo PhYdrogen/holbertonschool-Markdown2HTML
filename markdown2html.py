@@ -1,25 +1,30 @@
 #!/usr/bin/python3
-""" This file is made to parse some Markdown to HTML """
+"""
+This file is made to parse some Markdown to HTML
+"""
 
 import sys
 import hashlib
 
 
-if __name__ == "__main__":
-    def removeprefix(self: str, prefix: str, /) -> str:
-        """Function that remove prefix of word"""
-        if self.startswith(prefix):
-            return self[len(prefix):]
-        else:
-            return self[:]
+def removeprefix(self: str, prefix: str, /) -> str:
+    """Function that remove prefix of word"""
+    if self.startswith(prefix):
+        return self[len(prefix):]
+    else:
+        return self[:]
 
-    def removesuffix(self: str, suffix: str, /) -> str:
-        """Function that remove sufffix of word"""
-        # suffix='' should not call self[:-0].
-        if suffix and self.endswith(suffix):
-            return self[:-len(suffix)]
-        else:
-            return self[:]
+
+def removesuffix(self: str, suffix: str, /) -> str:
+    """Function that remove sufffix of word"""
+    # suffix='' should not call self[:-0].
+    if suffix and self.endswith(suffix):
+        return self[:-len(suffix)]
+    else:
+        return self[:]
+
+
+if __name__ == "__main__":
 
     if len(sys.argv) < 3:
         print("Usage: ./markdown2html.py README.md README.html", file=sys.stderr)
