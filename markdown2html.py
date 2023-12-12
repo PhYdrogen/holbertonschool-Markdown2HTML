@@ -7,9 +7,6 @@ After it read line by line the the .md file and parse it to HTML
 tags 
 """
 
-import sys
-import hashlib
-
 
 def removeprefix(self: str, prefix: str, /) -> str:
     """
@@ -39,6 +36,8 @@ def removesuffix(self: str, suffix: str, /) -> str:
 
 
 if __name__ == "__main__":
+    import sys
+    import hashlib
 
     if len(sys.argv) < 3:
         print("Usage: ./markdown2html.py README.md README.html", file=sys.stderr)
